@@ -1,0 +1,30 @@
+ion-grid {
+  ion-list {
+    display: flex;
+    flex-direction: column;
+
+    ion-item {
+      margin: 5px;
+    }
+  }
+
+  ion-button {
+    --ion-padding: 10px auto;
+  }
+}
+
+.auth-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.error-message {
+  color: var(--ion-color-danger);
+  font-size: 14px;
+  margin: 0 !important;
+  padding: 0 !important;
+  p {
+    margin: 0;
+  }
+}

@@ -1,0 +1,86 @@
+<ion-header
+  id="header"
+  class="ion-no-border"
+  [ngStyle]="!isProductsLoading ? { background: 'url(' + catImage + ')' }:{}"
+>
+  <ion-toolbar color="transparent">
+    <ion-buttons slot="start">
+      <ion-back-button
+        color="light"
+        defaultHref="/home/categories"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{isProductsLoading ? 'Loading..' : cateName}}</ion-title>
+
+    <div slot="primary" class="btns-container">
+      <ion-buttons>
+        <ion-button>
+          <ion-icon
+            color="light"
+            slot="icon-only"
+            name="search-outline"
+          ></ion-icon>
+        </ion-button>
+
+        <ion-button id="cart-button" routerLink="/home/cart">
+          <ion-icon slot="icon-only" color="light" name="cart-outline">
+          </ion-icon>
+          <ion-badge id="cart-badge" color="danger"
+            >{{cartNumberOfProducts}}</ion-badge
+          >
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div *ngIf="isProductsLoading" class="ion-text-center">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <ion-grid *ngIf="!isProductsLoading">
+      <ion-row>
+        <ion-col size="6" *ngFor="let product of products">
+          <ion-card native button class="product">
+            <div (click)="opanProduct(cateName, product.id)">
+              <ion-img [src]="product.product_img"></ion-img>
+              <ion-item lines="none">
+                <ion-text>{{product.name}}</ion-text>
+              </ion-item>
+            </div>
+            <div class="product-info">
+              <div class="product-info__left">
+                <ion-label>{{product.weight}}</ion-label>
+                <ion-label>{{product.price}}</ion-label>
+              </div>
+              <div class="product-info__right">
+                <ion-button
+                  (click)="addToCart($event , product)"
+                  class="icon-btn"
+                  [class]="checkId(product.id)? 'active': ''"
+                  size="small"
+                >
+                  <ion-icon
+                    slot="icon-only"
+                    size="large"
+                    [name]="checkId(product.id) ?iconName.active:iconName.notActive "
+                  ></ion-icon>
+                </ion-button>
+              </div>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-buttons id="footer">
+      <ion-button (click)="onSortBy()">Sort by</ion-button>
+      <ion-button (click)="onFilter()">Filter</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

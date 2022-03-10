@@ -1,0 +1,26 @@
+#menu {
+  .profile-img {
+    height: 120px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    ion-avatar {
+      height: 100px;
+      width: 100px;
+    }
+  }
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .item-input {
+    width: 70%;
+  }
+  .item-btn {
+    width: 30%;
+  }
+}

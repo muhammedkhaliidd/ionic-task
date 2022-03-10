@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/info-slider"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit User Info</ion-title>
+    <ion-buttons slot="primary" *ngIf="!isUserLoading">
+      <ion-button (click)="onEdit()" [disabled]="!form?.valid || !form?.dirty">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="edit-user">
+  <ion-item class="ion-no-padding" lines="none">
+    <div class="profile-img">
+      <ion-avatar>
+        <img
+          #profilePhoto
+          [src]="!isImageLoading ?  image.data :defaultImgUrl"
+        />
+      </ion-avatar>
+      <ion-button
+        *ngIf="!isImageLoading"
+        type="button"
+        fill="clear"
+        class="delete-btn"
+        (click)="onDelete()"
+      >
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+      <ion-button
+        type="button"
+        fill="clear"
+        class="upload-btn"
+        (click)="onUpdateImage()"
+      >
+        <ion-icon slot="start" name="camera"></ion-icon>
+        Change Photo</ion-button
+      >
+    </div>
+  </ion-item>
+  <div class="ion-text-center" *ngIf="isUserLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <form [formGroup]="form" *ngIf="!isUserLoading">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input
+              type="text"
+              autocomplete
+              autocorrect
+              formControlName="firstName"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input formControlName="lastName"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+          <ion-item>
+            <ion-label position="floating">Phone</ion-label>
+            <ion-input formControlName="phone"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+          <ion-item>
+            <div class="date-item">
+              <ion-label>Birth date</ion-label>
+              <ion-datetime
+                presentation="date"
+                min="1950-01-01"
+                [max]="maxDate"
+                formControlName="birthDate"
+              ></ion-datetime>
+            </div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
